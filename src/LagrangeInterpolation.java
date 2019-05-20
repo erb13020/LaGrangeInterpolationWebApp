@@ -2,10 +2,17 @@ import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -63,23 +70,46 @@ public class LagrangeInterpolation{
   
   public static void main (String args[])
   {
-	  JSONObject json_inputs = new JSONObject();
 	  ArrayList<Double> xi = new ArrayList<Double>();
-		
 	  ArrayList<Double> yi = new ArrayList<Double>();
-		
+	  
+	  JSONParser parser = new JSONParser();
+	  
+	  try(Reader reader = new FileReader("C:\\Users\\Burt\\eclipse-workspace\\LagrangeWebApp\\input.json")){
+		  JSONObject jsonObject = (JSONObject) parser.parse(reader);
+          System.out.println(jsonObject);
+          
+          JSONArray xcoordinates = (JSONArray) jsonObject.get("xcoordinates");
+          @SuppressWarnings("unchecked")
+		Iterator<Long> iteratorx = xcoordinates.iterator();
+          while (iteratorx.hasNext()) {
+        	  Long x_coordinate = iteratorx.next();
+        	  Double x_double = (double)x_coordinate;
+        	  xi.add(x_double);
+        	  System.out.println(x_double);
+          }
+          System.out.println();
+          JSONArray ycoordinates = (JSONArray) jsonObject.get("ycoordinates");
+          @SuppressWarnings("unchecked")
+		Iterator<Long> iteratory = ycoordinates.iterator();
+          while (iteratory.hasNext()) {
+        	  Long y_coordinate = iteratory.next();
+        	  Double y_double = (double)y_coordinate;
+        	  yi.add(y_double);
+        	  System.out.println(y_double);
+          }
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  } catch (ParseException e) {
+		e.printStackTrace();
+	}
 	  Scanner reader = new Scanner(System.in);
-		
-	  xi.add(5.0);
-	  xi.add(6.0);
-	  xi.add(3.0);
-		
-	  yi.add(7.0);
-	  yi.add(6.0);
-	  yi.add(-3.0);
+	  
 	  int sx = xi.size();
 	  int yx = yi.size();
-		
+	  System.out.println("Size of X is " + sx);
+	  System.out.println("Size of Y is " + yx);
+	  
 	  double x[] = new double[sx];
 	    
 	    for (int i = 0; i < sx; i++) {
