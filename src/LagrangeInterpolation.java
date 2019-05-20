@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -77,7 +78,6 @@ public class LagrangeInterpolation{
 	  
 	  try(Reader reader = new FileReader("C:\\Users\\Burt\\eclipse-workspace\\LagrangeWebApp\\input.json")){
 		  JSONObject jsonObject = (JSONObject) parser.parse(reader);
-          System.out.println(jsonObject);
           
           JSONArray xcoordinates = (JSONArray) jsonObject.get("xcoordinates");
           @SuppressWarnings("unchecked")
@@ -86,9 +86,7 @@ public class LagrangeInterpolation{
         	  Long x_coordinate = iteratorx.next();
         	  Double x_double = (double)x_coordinate;
         	  xi.add(x_double);
-        	  System.out.println(x_double);
           }
-          System.out.println();
           JSONArray ycoordinates = (JSONArray) jsonObject.get("ycoordinates");
           @SuppressWarnings("unchecked")
 		Iterator<Long> iteratory = ycoordinates.iterator();
@@ -96,7 +94,6 @@ public class LagrangeInterpolation{
         	  Long y_coordinate = iteratory.next();
         	  Double y_double = (double)y_coordinate;
         	  yi.add(y_double);
-        	  System.out.println(y_double);
           }
 	  } catch (IOException e) {
 		  e.printStackTrace();
@@ -107,8 +104,6 @@ public class LagrangeInterpolation{
 	  
 	  int sx = xi.size();
 	  int yx = yi.size();
-	  System.out.println("Size of X is " + sx);
-	  System.out.println("Size of Y is " + yx);
 	  
 	  double x[] = new double[sx];
 	    
@@ -133,9 +128,20 @@ public class LagrangeInterpolation{
     int n = Array.getLength(y);
     
     String rationalCVector[] = new String[n]; 
-    
     int r = 1;
-    //int r = 0;
+    
+    try(Reader reader1 = new FileReader("C:\\Users\\Burt\\eclipse-workspace\\LagrangeWebApp\\input.json")) {
+    	JSONObject jsonObject = (JSONObject) parser.parse(reader1);
+    	Long form = (Long) jsonObject.get("form");
+    	r = form.intValue();
+    	System.out.println(r);
+    } catch (FileNotFoundException e) {
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
     
     if(r == 0) {
     	 for (int i = 0; i < n; i++) {
