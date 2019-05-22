@@ -44,15 +44,50 @@
  				if(Math.abs(x) > bounds[2]){
  					bounds[0] = x * -scale;
  					bounds[2] = x * scale;
- 				}else if (Math.abs(y) > Math.abs(bounds[1])){
+ 				}
+ 				if (Math.abs(y) > Math.abs(bounds[1])){
+ 					console.log("here");
  					bounds[1] = y * scale;
  					bounds[3] = y * -scale;
  				}
- 			}
 
- 			board = JXG.JSXGraph.initBoard('box', {boundingbox: bounds, axis:true});
+ 				bounds[0] = Math.abs(bounds[0]) * -1; //neg x should be negative
+ 				bounds[1] = Math.abs(bounds[1]);	//pos y should be positive
+ 				bounds[2] = Math.abs(bounds[2]); //pos x should be positive
+ 				bounds[3] = Math.abs(bounds[3]) * -1; //neg y should be negative
+ 			}
 
  			for (var i = 0; i < points.length; i++){
  			board.create('point',points[i], {name:'', size:3, fixed: true});
  			}
 		}
+		function subStrAfterChars(str, char, pos){
+			if(pos=='b')
+   				return str.substring(str.indexOf(char) + 1);
+  			else if(pos=='a') 
+   			return str.substring(0, str.indexOf(char));
+  			else
+  			return str;  
+		}
+
+	//plots LaGrange Polynomial computed from the back end
+	function graphPolynomial(){
+		var polynomial = document.getElementById("polynomial").innerHTML;
+
+		//now we re-format our LaGrange polynomial, which is in MathJAX/LaTeX format, into something JSXGraph can parse
+		polynomial = polynomial.substring(polynomial.lastIndexOf("=") + 2);
+		polynomial = polynomial.replaceAll("</script>", "");
+        polynomial = polynomial.replaceAll("x", " * x");
+        polynomial = polynomial.replaceAll("^", " ** ");
+
+		board.create('functiongraph',
+                       [function(x){
+                       	return eval(polynomial); //turn the string 'polynomial' into literal javascript code
+                       }]
+                    );
+	}
+
+	//clears the plot
+	function clearAll(){
+    	board = JXG.JSXGraph.initBoard('box', {boundingbox: [-10, 10, 10, -10], axis:true});
+	}
