@@ -20,7 +20,6 @@ User will input x and y coordinates on a javascript front end. This gets formatt
 - Implemented dynamic point plotting using JSXGraph
 
 # What needs to be done (Front End)
-- Implement polynomial plotting using JSXGraph
-- Add clear graph, plot lagrange buttons
+- Fix bug where app takes a long time to graph a polynomial if the graph has been previously cleared
 - Organize everything using CSS and Bootstrap
 - Be able to send JSON file containing points and function display format to the Java servlet
