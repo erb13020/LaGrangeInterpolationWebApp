@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LaGrange Interpolating Polynomial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link rel="stylesheet" href="css/style.css" type="text/css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<script src="javascript/caller.js"></script>
+</head>
+<body>
+	<h1>LaGrange Interpolating Polynomial</h1>
+	<div id="box" class="jxgbox" style="width:500px; height:500px;"></div>
+	<form id="ComputeLagrange" method="GET">
+			<label for="points_list">Points</label>
+			<input type="text" id="points_list" name="points_list">
+			<input type="submit"></input>
+	</form>
+	<p id="polynomial">something</p>
+	<!-- $$f(x) = (17.0/105.0)x^4 + (-7.0/6.0)x^3 + (-19.0/42.0)x^2 + (10.0/1.0)x^1 + (-194.0/35.0)x^0$$ -->
+	
+	<button class="btn btn-primary" type="button" onclick="graphPoints()"> Plot Points</button>
+	<button class="btn btn-primary" type="button" onclick="clearAll()">Clear</button>
+	<small id="point-form" class="form-text text-muted">Seperate Coordinates using comma. Not space sensitive. Ex. (3,2.52), (-5,0), (2.9,2), (-4,4). Parenthesis and Brackets are fine. Ex. [3,2.52], {-5,0}, (2.9,2), -4,4. </small>
+	<script type="text/javascript" src="javascript/graph.js"></script>
+</body>
+</html>
